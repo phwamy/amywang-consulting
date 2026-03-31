@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amy Wang — AI Product & Automation Consultant</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --max: 680px;
+      --ink: #1a1a1a;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --card-bg: #f9fafb;
+      --radius: 8px;
+      --gap: 2rem;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .nav-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .nav-links a:hover { color: var(--ink); text-decoration: none; }
+
+    /* ── SECTIONS ── */
+    section { padding: 4rem 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    h1, h2, h3 { line-height: 1.25; letter-spacing: -0.02em; }
+
+    /* ── HERO ── */
+    #hero { padding: 5rem 0 4rem; }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      margin-bottom: 1.25rem;
+    }
+
+    #hero h1 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      color: var(--ink);
+    }
+
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .hero-cta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { border: 1.5px solid var(--border); color: var(--ink); }
+
+    /* ── ABOUT ── */
+    #about p { color: var(--muted); max-width: 580px; }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .service-card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .service-icon {
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── WORK ── */
+    .work-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .work-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .work-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .work-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .work-subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .work-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-enterprise { background: #dbeafe; color: #1d4ed8; }
+    .badge-personal   { background: #d1fae5; color: #065f46; }
+    .badge-award      { background: #fef3c7; color: #92400e; }
+    .badge-place      { background: #ede9fe; color: #5b21b6; }
+
+    /* ── CERTS ── */
+    .cert-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.5rem;
+    }
+
+    .cert-pill {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.3rem 0.85rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      align-items: start;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 0.9rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--ink);
+      background: var(--bg);
+      transition: border-color 0.15s;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    textarea { min-height: 110px; }
+
+    .form-submit {
+      width: 100%;
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .calendly-placeholder {
+      background: var(--card-bg);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.25rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--muted);
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .calendly-placeholder strong { color: var(--ink); font-size: 0.95rem; }
+
+    /* Calendly inline widget */
+    .calendly-inline-widget {
+      min-width: 280px;
+      height: 580px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-links { display: flex; gap: 1.25rem; }
+    .footer-links a { color: var(--muted); }
+    .footer-links a:hover { color: var(--ink); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .services-grid  { grid-template-columns: 1fr; }
+      .contact-grid   { grid-template-columns: 1fr; }
+      .nav-links      { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="wrap">
+    <span class="nav-name">Amy Wang</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="wrap">
+    <span class="hero-label">AI Product &amp; Automation Consultant</span>
+    <h1>Helping small businesses<br>work smarter with AI</h1>
+    <p class="hero-bio">
+      7+ years leading Fortune 500 digital transformations. Award-winning AI applications.
+      Solo-built iOS apps shipped to production. Now bringing that firepower to founders and
+      small teams who want to work smarter — not harder.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Book a free call</a>
+      <a href="#work" class="btn btn-outline">See my work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="wrap">
+    <p class="section-label">About</p>
+    <p>
+      I'm Amy — a product and technology consultant who spent a decade inside Fortune 500 companies
+      building large-scale cloud platforms and AI-powered tools. These days I work directly with
+      founders and small business owners, helping them cut repetitive work, make smarter decisions
+      faster, and ship ideas that would normally require a whole engineering team.
+      I keep things practical, jargon-free, and focused on what actually moves the needle for your business.
+    </p>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="wrap">
+    <p class="section-label">Services</p>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">🔍</div>
+        <h3>AI Workflow Audit</h3>
+        <p>Identify the highest-leverage places to introduce AI in your existing processes and hand you a prioritised action plan.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Tool Setup &amp; Automation</h3>
+        <p>Hands-on implementation of no-code and low-code automations — from scheduling to reporting to customer comms.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Custom App Development</h3>
+        <p>Lightweight web and mobile apps built for your specific workflow, without the overhead of a full agency.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <h3>Team Training</h3>
+        <p>Practical workshops that get your team comfortable using AI tools confidently, safely, and effectively.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── WORK ── -->
+<section id="work">
+  <div class="wrap">
+    <p class="section-label">Selected Work</p>
+    <div class="work-list">
+
+      <div class="work-card">
+        <div class="work-card-top">
+          <h3>Healthcare Cloud Modernisation</h3>
+          <span class="badge badge-enterprise">Enterprise</span>
+        </div>
+        <p class="work-subtitle">Fortune 500 · Healthcare</p>
+        <p class="work-desc">Led a 100+ person program modernising four business lines onto cloud-native microservices architecture, improving reliability and unlocking future AI capabilities at scale.</p>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-top">
+          <h3>Finance Technology Transformation</h3>
+          <span class="badge badge-enterprise">Enterprise</span>
+        </div>
+        <p class="work-subtitle">Fortune 500 · Financial Services</p>
+        <p class="work-desc">Reinvented back-end systems automating account management and transactions — processing 900K orders per day with significantly improved throughput and auditability.</p>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-top">
+          <h3>Yachō — Birdwatching &amp; Wildlife iOS App</h3>
+          <span class="badge badge-personal">Personal Project</span>
+        </div>
+        <p class="work-subtitle">Solo-built · React Native · Supabase</p>
+        <p class="work-desc">Solo-built iOS app cataloguing 10,000+ wildlife spots across Japan and Taiwan. Trilingual UI (English, Japanese, Traditional Chinese) with offline map support.</p>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-top">
+          <h3>AI Sprout</h3>
+          <span class="badge badge-award">Best Technical Tool</span>
+        </div>
+        <p class="work-subtitle">Harvard GenAI EarthHack 2024 · Champion</p>
+        <p class="work-desc">NLP + LLM + RAG pipeline for evaluating the sustainability impact of business ideas — awarded Best Technical Tool at the Harvard GenAI EarthHack 2024 competition.</p>
+      </div>
+
+      <div class="work-card">
+        <div class="work-card-top">
+          <h3>AI DocuCare</h3>
+          <span class="badge badge-place">4th Place</span>
+        </div>
+        <p class="work-subtitle">Purdue Data4Good Competition 2023</p>
+        <p class="work-desc">Open-source LLM pipeline for medical transcription, reducing clinician documentation time and improving accuracy for underserved healthcare settings.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CERTIFICATIONS ── -->
+<section id="certifications">
+  <div class="wrap">
+    <p class="section-label">Certifications</p>
+    <div class="cert-row">
+      <span class="cert-pill">AWS Cloud Practitioner</span>
+      <span class="cert-pill">Microsoft Azure Fundamentals</span>
+      <span class="cert-pill">Accenture Reinvention with Agentic AI</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="wrap">
+    <p class="section-label">Contact</p>
+    <div class="contact-grid">
+
+      <!-- Form — replace ACTION_URL with your Formspree endpoint -->
+      <form action="FORMSPREE_ENDPOINT" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me what you're working on…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">Send message</button>
+      </form>
+
+      <!-- Calendly — replace CALENDLY_URL with your Calendly link -->
+      <div>
+        <!-- OPTION A: inline widget (replace URL below) -->
+        <!-- <div class="calendly-inline-widget" data-url="CALENDLY_URL"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
+
+        <!-- OPTION B: placeholder shown until you add your Calendly URL -->
+        <div class="calendly-placeholder" id="calendly-placeholder">
+          <strong>Book a free 30-min call</strong>
+          <p>Add your Calendly URL to replace this with the live scheduling widget.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="wrap">
+    <span>© 2026 Amy Wang</span>
+    <nav class="footer-links">
+      <!-- Replace # with your actual LinkedIn and email -->
+      <a href="https://linkedin.com/in/YOURHANDLE" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:YOUREMAIL@example.com">Email</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
