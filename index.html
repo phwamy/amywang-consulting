@@ -300,32 +300,122 @@
     }
 
     /* ── CONTACT ── */
-    .contact-intro {
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 540px;
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-actions {
+    .contact-email-row {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.25rem;
+      padding-bottom: 2rem;
       margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
       flex-wrap: wrap;
     }
 
-    .contact-divider {
+    .contact-email-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* Booking panel — two column, Cal.com style */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 268px 1fr;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .booking-panel {
+      padding: 1.75rem 1.5rem;
+      border-right: 1px solid var(--border);
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .booking-panel-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .booking-panel-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: -0.5rem;
+    }
+
+    .booking-section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .duration-options {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .duration-btn {
+      padding: 0.35rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      background: var(--bg);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      font-family: inherit;
+    }
+
+    .duration-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .duration-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .duration-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .booking-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .booking-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
       font-size: 0.85rem;
       color: var(--muted);
     }
 
+    .booking-meta-icon {
+      font-size: 0.85rem;
+      width: 1rem;
+      text-align: center;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
     #my-cal-inline {
       width: 100%;
-      height: 520px;
+      height: 560px;
       overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
     }
 
     /* ── FOOTER ── */
@@ -369,6 +459,11 @@
       }
       #hero h1 { max-width: 100%; }
       .hero-bio { max-width: 100%; }
+    }
+
+    @media (max-width: 700px) {
+      .booking-grid { grid-template-columns: 1fr; }
+      .booking-panel { border-right: none; border-bottom: 1px solid var(--border); }
     }
 
     @media (max-width: 620px) {
@@ -533,13 +628,46 @@
 <section id="contact">
   <div class="wrap">
     <h2 class="section-label">Contact</h2>
-    <p class="contact-intro">Have a project in mind or want to explore what AI could do for your business? Pick a time below or send me an email.</p>
-    <div class="contact-actions">
+
+    <!-- Email — top -->
+    <div class="contact-email-row">
+      <span class="contact-email-text">Have a question or want to connect directly?</span>
       <a href="mailto:phw.amy@gmail.com" class="btn btn-primary">Send me an email</a>
-      <span class="contact-divider">or pick a time below</span>
     </div>
 
-    <div id="my-cal-inline"></div>
+    <!-- Booking — two column, Cal.com style -->
+    <div class="booking-grid">
+
+      <!-- Left: session details -->
+      <div class="booking-panel">
+        <p class="booking-panel-name">Amy Wang</p>
+        <p class="booking-panel-desc">Let's talk about your business and how AI can work for you.</p>
+
+        <div>
+          <p class="booking-section-label">Session length</p>
+          <div class="duration-options">
+            <button class="duration-btn active" data-link="phw.amy/30min">30 min</button>
+            <button class="duration-btn" data-link="phw.amy/60min">60 min</button>
+          </div>
+        </div>
+
+        <div class="booking-meta">
+          <div class="booking-meta-item">
+            <span class="booking-meta-icon">📹</span>
+            <span>Google Meet</span>
+          </div>
+          <div class="booking-meta-item">
+            <span class="booking-meta-icon">🌍</span>
+            <span id="user-timezone">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: calendar -->
+      <div id="my-cal-inline"></div>
+
+    </div>
+
     <script type="text/javascript">
       (function (C, A, L) {
         let p = function (a, ar) { a.q.push(ar); };
@@ -552,17 +680,41 @@
         };
       })(window, "https://app.cal.com/embed/embed.js", "init");
       Cal("init", { origin: "https://cal.com" });
-      Cal("inline", {
-        elementOrSelector: "#my-cal-inline",
-        calLink: "phw.amy",
-        layout: "month_view"
+
+      function loadCal(link) {
+        document.getElementById("my-cal-inline").innerHTML = "";
+        Cal("inline", {
+          elementOrSelector: "#my-cal-inline",
+          calLink: link,
+          layout: "month_view"
+        });
+        Cal("ui", {
+          theme: "light",
+          styles: { branding: { brandColor: "#2563eb" } },
+          hideEventTypeDetails: false,
+          layout: "month_view"
+        });
+      }
+
+      // Load default (30 min)
+      loadCal("phw.amy/30min");
+
+      // Duration toggle
+      document.querySelectorAll(".duration-btn").forEach(function(btn) {
+        btn.addEventListener("click", function() {
+          document.querySelectorAll(".duration-btn").forEach(function(b) {
+            b.classList.remove("active");
+          });
+          this.classList.add("active");
+          loadCal(this.dataset.link);
+        });
       });
-      Cal("ui", {
-        theme: "light",
-        styles: { branding: { brandColor: "#2563eb" } },
-        hideEventTypeDetails: false,
-        layout: "month_view"
-      });
+
+      // Detect and display timezone
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById("user-timezone").textContent = tz.replace(/_/g, " ");
+      } catch(e) {}
     </script>
   </div>
 </section>
