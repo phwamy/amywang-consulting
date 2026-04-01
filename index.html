@@ -4,23 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amy Wang — AI Product & Automation Consultant</title>
+  <link rel="preconnect" href="https://app.cal.com" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --max: 680px;
+      --max: 960px;
       --ink: #1a1a1a;
-      --muted: #6b7280;
+      --muted: #555e6c;
       --accent: #2563eb;
       --accent-light: #eff6ff;
       --border: #e5e7eb;
       --bg: #ffffff;
       --card-bg: #f9fafb;
       --radius: 8px;
-      --gap: 2rem;
+      /* Badge tokens */
+      --badge-enterprise-bg: #dbeafe;
+      --badge-enterprise-fg: #1d4ed8;
+      --badge-honors-bg: #fef3c7;
+      --badge-honors-fg: #92400e;
     }
 
-    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -33,18 +40,33 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* Skip link (audit C4) */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+      font-size: 0.875rem;
+      font-weight: 600;
+      z-index: 200;
+      transition: top 0.1s;
+    }
+    .skip-link:focus { top: 0; }
+
     .wrap {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 0 1.25rem;
+      padding: 0 1.5rem;
     }
 
     /* ── NAV ── */
     nav {
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(8px);
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
       z-index: 100;
     }
@@ -66,7 +88,7 @@
 
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.75rem;
       list-style: none;
     }
 
@@ -77,18 +99,24 @@
     }
 
     .nav-links a:hover { color: var(--ink); text-decoration: none; }
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
 
     /* ── SECTIONS ── */
     section { padding: 4rem 0; }
     section + section { border-top: 1px solid var(--border); }
 
+    /* Section labels are h2 for correct heading hierarchy (audit C1) */
     .section-label {
       font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
     h1, h2, h3 { line-height: 1.25; letter-spacing: -0.02em; }
@@ -96,39 +124,52 @@
     /* ── HERO ── */
     #hero { padding: 5rem 0 4rem; }
 
-    .hero-label {
-      display: inline-block;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .hero-name {
+      font-size: clamp(1.9rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-role {
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      color: var(--accent);
-      background: var(--accent-light);
-      padding: 0.25rem 0.65rem;
-      border-radius: 4px;
-      margin-bottom: 1.25rem;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
     }
 
     #hero h1 {
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-      font-weight: 800;
-      margin-bottom: 1.25rem;
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      font-weight: 700;
       color: var(--ink);
+      margin-bottom: 1rem;
+      max-width: 520px;
     }
 
     .hero-bio {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: var(--muted);
-      max-width: 560px;
+      max-width: 520px;
     }
 
-    .hero-cta {
-      margin-top: 2rem;
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
+    .hero-photo img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
     }
 
+    /* ── BUTTONS ── */
     .btn {
       display: inline-block;
       padding: 0.6rem 1.25rem;
@@ -137,34 +178,40 @@
       font-weight: 600;
       cursor: pointer;
       transition: opacity 0.15s;
+      min-height: 44px;
+      line-height: 1.6;
     }
     .btn:hover { opacity: 0.85; text-decoration: none; }
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
 
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-outline { border: 1.5px solid var(--border); color: var(--ink); }
 
     /* ── ABOUT ── */
-    #about p { color: var(--muted); max-width: 580px; }
+    #about p.body-text { color: var(--muted); max-width: 620px; }
 
     /* ── SERVICES ── */
     .services-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
-      margin-top: 1.5rem;
     }
 
     .service-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
+      padding: 1.4rem 1.5rem;
     }
 
     .service-card h3 {
       font-size: 0.95rem;
       font-weight: 700;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
+      color: var(--ink);
     }
 
     .service-card p {
@@ -172,43 +219,42 @@
       color: var(--muted);
     }
 
-    .service-icon {
-      font-size: 1.25rem;
-      margin-bottom: 0.6rem;
-    }
-
     /* ── WORK ── */
     .work-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      margin-top: 1.5rem;
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
 
     .work-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background: var(--bg);
       padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
     }
+
+    .work-card:last-child { border-bottom: none; }
 
     .work-card-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 1rem;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
 
     .work-card h3 {
       font-size: 0.95rem;
       font-weight: 700;
+      color: var(--ink);
     }
 
     .work-subtitle {
       font-size: 0.8rem;
       color: var(--muted);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
     }
 
     .work-desc {
@@ -219,24 +265,28 @@
     .badge {
       display: inline-block;
       white-space: nowrap;
+      flex-shrink: 0;
       font-size: 0.7rem;
       font-weight: 600;
-      padding: 0.2rem 0.55rem;
+      padding: 0.25rem 0.6rem;
       border-radius: 4px;
       letter-spacing: 0.03em;
     }
 
-    .badge-enterprise { background: #dbeafe; color: #1d4ed8; }
-    .badge-personal   { background: #d1fae5; color: #065f46; }
-    .badge-award      { background: #fef3c7; color: #92400e; }
-    .badge-place      { background: #ede9fe; color: #5b21b6; }
+    .badge-enterprise {
+      background: var(--badge-enterprise-bg);
+      color: var(--badge-enterprise-fg);
+    }
+    .badge-honors {
+      background: var(--badge-honors-bg);
+      color: var(--badge-honors-fg);
+    }
 
     /* ── CERTS ── */
     .cert-row {
       display: flex;
       flex-wrap: wrap;
       gap: 0.65rem;
-      margin-top: 1.5rem;
     }
 
     .cert-pill {
@@ -250,80 +300,33 @@
     }
 
     /* ── CONTACT ── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-top: 1.5rem;
-      align-items: start;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      margin-bottom: 0.9rem;
-    }
-
-    label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 0.55rem 0.75rem;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 0.9rem;
-      font-family: inherit;
-      color: var(--ink);
-      background: var(--bg);
-      transition: border-color 0.15s;
-      resize: vertical;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    textarea { min-height: 110px; }
-
-    .form-submit {
-      width: 100%;
-      border: none;
-      font-family: inherit;
-      font-size: 0.9rem;
-    }
-
-    .calendly-placeholder {
-      background: var(--card-bg);
-      border: 1.5px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 2rem 1.25rem;
-      text-align: center;
-      font-size: 0.875rem;
+    .contact-intro {
+      font-size: 1rem;
       color: var(--muted);
-      min-height: 200px;
+      max-width: 540px;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-actions {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
 
-    .calendly-placeholder strong { color: var(--ink); font-size: 0.95rem; }
-
-    /* Calendly inline widget */
-    .calendly-inline-widget {
-      min-width: 280px;
-      height: 580px;
+    .contact-divider {
+      font-size: 0.85rem;
+      color: var(--muted);
     }
 
-    .contact-blurb { color: var(--muted); font-size: 0.95rem; }
-    .contact-note  { margin-top: 0.85rem; font-size: 0.8rem; color: var(--muted); }
+    #my-cal-inline {
+      width: 100%;
+      height: 520px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -344,19 +347,43 @@
     .footer-links { display: flex; gap: 1.25rem; }
     .footer-links a { color: var(--muted); }
     .footer-links a:hover { color: var(--ink); text-decoration: none; }
+    .footer-links a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 580px) {
-      .services-grid  { grid-template-columns: 1fr; }
-      .contact-grid   { grid-template-columns: 1fr; }
-      .nav-links      { gap: 1rem; }
+    @media (max-width: 700px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .hero-photo {
+        order: -1;
+      }
+      .hero-photo img {
+        width: 140px;
+        margin: 0 auto;
+        border-radius: 50%;
+      }
+      #hero h1 { max-width: 100%; }
+      .hero-bio { max-width: 100%; }
+    }
+
+    @media (max-width: 620px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+      #my-cal-inline { height: 680px; }
     }
   </style>
 </head>
 <body>
 
+<a href="#main" class="skip-link">Skip to content</a>
+
 <!-- ── NAV ── -->
-<nav>
+<nav aria-label="Main">
   <div class="wrap">
     <span class="nav-name">Amy Wang</span>
     <ul class="nav-links">
@@ -368,19 +395,25 @@
   </div>
 </nav>
 
+<main id="main">
+
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="wrap">
-    <span class="hero-label">AI Product &amp; Automation Consultant</span>
-    <h1>Helping small businesses<br>work smarter with AI</h1>
-    <p class="hero-bio">
-      7+ years leading Fortune 500 digital transformations. Award-winning AI applications.
-      Solo-built iOS apps shipped to production. Now bringing that firepower to founders and
-      small teams who want to work smarter — not harder.
-    </p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary">Book a free call</a>
-      <a href="#work" class="btn btn-outline">See my work</a>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <p class="hero-name">Amy Wang</p>
+        <p class="hero-role">AI Product &amp; Automation Consultant</p>
+        <h1>Helping small businesses<br>work smarter with AI</h1>
+        <p class="hero-bio">
+          7+ years leading Fortune 500 digital transformations. Award-winning AI applications.
+          Solo-built iOS apps shipped to production. Now bringing that firepower to founders and
+          small teams who want to work smarter — not harder.
+        </p>
+      </div>
+      <div class="hero-photo">
+        <img src="photo.png" alt="Amy Wang, AI Product & Automation Consultant" />
+      </div>
     </div>
   </div>
 </section>
@@ -388,8 +421,8 @@
 <!-- ── ABOUT ── -->
 <section id="about">
   <div class="wrap">
-    <p class="section-label">About</p>
-    <p>
+    <h2 class="section-label">About</h2>
+    <p class="body-text">
       I'm Amy — a product and technology consultant who spent a decade inside Fortune 500 companies
       building large-scale cloud platforms and AI-powered tools. These days I work directly with
       founders and small business owners, helping them cut repetitive work, make smarter decisions
@@ -402,29 +435,25 @@
 <!-- ── SERVICES ── -->
 <section id="services">
   <div class="wrap">
-    <p class="section-label">Services</p>
+    <h2 class="section-label">Services</h2>
     <div class="services-grid">
 
       <div class="service-card">
-        <div class="service-icon">🔍</div>
         <h3>AI Workflow Audit</h3>
         <p>Identify the highest-leverage places to introduce AI in your existing processes and hand you a prioritised action plan.</p>
       </div>
 
       <div class="service-card">
-        <div class="service-icon">⚙️</div>
         <h3>Tool Setup &amp; Automation</h3>
         <p>Hands-on implementation of no-code and low-code automations — from scheduling to reporting to customer comms.</p>
       </div>
 
       <div class="service-card">
-        <div class="service-icon">📱</div>
         <h3>Custom App Development</h3>
         <p>Lightweight web and mobile apps built for your specific workflow, without the overhead of a full agency.</p>
       </div>
 
       <div class="service-card">
-        <div class="service-icon">🎓</div>
         <h3>Team Training</h3>
         <p>Practical workshops that get your team comfortable using AI tools confidently, safely, and effectively.</p>
       </div>
@@ -436,7 +465,7 @@
 <!-- ── WORK ── -->
 <section id="work">
   <div class="wrap">
-    <p class="section-label">Selected Work</p>
+    <h2 class="section-label">Selected Work</h2>
     <div class="work-list">
 
       <div class="work-card">
@@ -460,7 +489,7 @@
       <div class="work-card">
         <div class="work-card-top">
           <h3>Yachō — Birdwatching &amp; Wildlife iOS App</h3>
-          <span class="badge badge-personal">Personal Project</span>
+          <span class="badge badge-honors">Personal</span>
         </div>
         <p class="work-subtitle">Solo-built · React Native · Supabase</p>
         <p class="work-desc">Solo-built iOS app cataloguing 10,000+ wildlife spots across Japan and Taiwan. Trilingual UI (English, Japanese, Traditional Chinese) with offline map support.</p>
@@ -469,7 +498,7 @@
       <div class="work-card">
         <div class="work-card-top">
           <h3>AI Sprout</h3>
-          <span class="badge badge-award">Best Technical Tool</span>
+          <span class="badge badge-honors">Award</span>
         </div>
         <p class="work-subtitle">Harvard GenAI EarthHack 2024 · Champion</p>
         <p class="work-desc">NLP + LLM + RAG pipeline for evaluating the sustainability impact of business ideas — awarded Best Technical Tool at the Harvard GenAI EarthHack 2024 competition.</p>
@@ -478,7 +507,7 @@
       <div class="work-card">
         <div class="work-card-top">
           <h3>AI DocuCare</h3>
-          <span class="badge badge-place">4th Place</span>
+          <span class="badge badge-honors">Award</span>
         </div>
         <p class="work-subtitle">Purdue Data4Good Competition 2023</p>
         <p class="work-desc">Open-source LLM pipeline for medical transcription, reducing clinician documentation time and improving accuracy for underserved healthcare settings.</p>
@@ -491,7 +520,7 @@
 <!-- ── CERTIFICATIONS ── -->
 <section id="certifications">
   <div class="wrap">
-    <p class="section-label">Certifications</p>
+    <h2 class="section-label">Certifications</h2>
     <div class="cert-row">
       <span class="cert-pill">AWS Cloud Practitioner</span>
       <span class="cert-pill">Microsoft Azure Fundamentals</span>
@@ -503,54 +532,48 @@
 <!-- ── CONTACT ── -->
 <section id="contact">
   <div class="wrap">
-    <p class="section-label">Contact</p>
-    <div class="contact-grid">
-
-      <!-- Left: reach out blurb + email CTA -->
-      <div class="contact-left">
-        <p class="contact-blurb">Have a project in mind or just want to explore what AI could do for your business? I'd love to hear from you.</p>
-        <a href="mailto:phw.amy@gmail.com" class="btn btn-primary" style="margin-top:1.25rem;display:inline-block;">Send me an email</a>
-        <p class="contact-note">Or pick a 30-min intro or 60-min deep-dive using the calendar →</p>
-      </div>
-
-      <!-- Right: Cal.com inline widget -->
-      <div>
-        <div id="my-cal-inline" style="width:100%;height:580px;overflow:scroll;"></div>
-        <script type="text/javascript">
-          (function (C, A, L) {
-            let p = function (a, ar) { a.q.push(ar); };
-            let d = C.document;
-            C.Cal = C.Cal || function () {
-              let cal = C.Cal; let ar = arguments;
-              if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
-              if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["-queue", namespace, ar]); } else { p(cal, ar); } return; }
-              p(cal, ar);
-            };
-          })(window, "https://app.cal.com/embed/embed.js", "init");
-          Cal("init", { origin: "https://cal.com" });
-          Cal("inline", {
-            elementOrSelector: "#my-cal-inline",
-            calLink: "phw.amy",
-            layout: "month_view"
-          });
-          Cal("ui", {
-            styles: { branding: { brandColor: "#2563eb" } },
-            hideEventTypeDetails: false,
-            layout: "month_view"
-          });
-        </script>
-      </div>
-
+    <h2 class="section-label">Contact</h2>
+    <p class="contact-intro">Have a project in mind or want to explore what AI could do for your business? Pick a time below or send me an email.</p>
+    <div class="contact-actions">
+      <a href="mailto:phw.amy@gmail.com" class="btn btn-primary">Send me an email</a>
+      <span class="contact-divider">or pick a time below</span>
     </div>
+
+    <div id="my-cal-inline"></div>
+    <script type="text/javascript">
+      (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+          let cal = C.Cal; let ar = arguments;
+          if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+          if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["-queue", namespace, ar]); } else { p(cal, ar); } return; }
+          p(cal, ar);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", { origin: "https://cal.com" });
+      Cal("inline", {
+        elementOrSelector: "#my-cal-inline",
+        calLink: "phw.amy",
+        layout: "month_view"
+      });
+      Cal("ui", {
+        theme: "light",
+        styles: { branding: { brandColor: "#2563eb" } },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+    </script>
   </div>
 </section>
+
+</main>
 
 <!-- ── FOOTER ── -->
 <footer>
   <div class="wrap">
     <span>© 2026 Amy Wang</span>
-    <nav class="footer-links">
-      <!-- Replace # with your actual LinkedIn and email -->
+    <nav class="footer-links" aria-label="Footer">
       <a href="https://www.linkedin.com/in/peihsinwang" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:phw.amy@gmail.com">Email</a>
     </nav>
