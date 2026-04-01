@@ -329,6 +329,37 @@
       color: var(--muted);
     }
 
+    /* ── BUSINESS CARD / QR ── */
+    .qr-block {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .qr-img {
+      width: 88px;
+      height: 88px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .qr-text { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .qr-text strong {
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .qr-text p {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
     /* ── CONTACT ── */
     .contact-email-row {
       display: flex;
@@ -790,6 +821,23 @@
         document.getElementById("user-timezone").textContent = tz.replace(/_/g, " ");
       } catch(e) {}
     </script>
+
+    <!-- QR code / digital business card -->
+    <div class="qr-block">
+      <a href="card.html">
+        <img
+          class="qr-img"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=176x176&data=https%3A%2F%2Fphwamy.github.io%2Famywang-consulting%2Fcard.html&color=1a1a1a&bgcolor=ffffff&margin=2"
+          alt="QR code for Amy Wang's digital business card"
+        />
+      </a>
+      <div class="qr-text">
+        <strong>Digital business card</strong>
+        <p>Scan to save my contact details directly to your phone.</p>
+        <a href="card.html" style="font-size:0.8rem;">View card →</a>
+      </div>
+    </div>
+
   </div>
 </section>
 

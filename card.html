@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Amy Wang — Digital Business Card</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a1a;
+      --muted: #555e6c;
+      --accent: #2563eb;
+      --border: #e5e7eb;
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --radius: 16px;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      max-width: 380px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 8px 32px rgba(0,0,0,0.06);
+    }
+
+    /* Avatar */
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      margin: 0 auto 1.25rem;
+      display: block;
+      border: 3px solid var(--border);
+    }
+
+    /* Name & title */
+    .name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Save to contacts CTA */
+    .save-btn {
+      display: block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 0.85rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: opacity 0.15s;
+    }
+
+    .save-btn:hover { opacity: 0.88; }
+
+    /* Contact rows */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.875rem;
+      transition: background 0.1s;
+    }
+
+    .contact-row + .contact-row {
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-row:hover { background: #f9fafb; }
+
+    .contact-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .icon-email { background: #eff6ff; }
+    .icon-linkedin { background: #eff6ff; }
+    .icon-web { background: #f0fdf4; }
+
+    .contact-row-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 0.1rem;
+    }
+
+    .contact-value {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    /* QR code (for print / sharing the card itself) */
+    .qr-section {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
+    .qr-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .qr-code {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .footer-note {
+      margin-top: 1.5rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <img class="avatar" src="photo.png" alt="Amy Wang" />
+
+    <p class="name">Amy Wang</p>
+    <p class="title">AI Product &amp; Automation Consultant</p>
+
+    <!-- Primary CTA: triggers vCard download → iOS/Android auto-prompts Add to Contacts -->
+    <a class="save-btn" href="amy-wang.vcf" download="Amy Wang.vcf">
+      Save to Contacts
+    </a>
+
+    <!-- Contact details -->
+    <div class="contact-list">
+
+      <a class="contact-row" href="mailto:phw.amy@gmail.com">
+        <div class="contact-icon icon-email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2" stroke="#2563eb" stroke-width="1.75"/>
+            <path d="M2 7l10 7 10-7" stroke="#2563eb" stroke-width="1.75" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="contact-row-text">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">phw.amy@gmail.com</span>
+        </div>
+      </a>
+
+      <a class="contact-row" href="https://www.linkedin.com/in/peihsinwang" target="_blank" rel="noopener">
+        <div class="contact-icon icon-linkedin">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#2563eb" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.05c.53-1 1.82-2.1 3.75-2.1 4.01 0 4.75 2.64 4.75 6.07V24h-4v-8.56c0-2.04-.04-4.66-2.84-4.66-2.85 0-3.28 2.22-3.28 4.52V24h-4V8.5z"/>
+          </svg>
+        </div>
+        <div class="contact-row-text">
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/peihsinwang</span>
+        </div>
+      </a>
+
+      <a class="contact-row" href="https://phwamy.github.io/amywang-consulting/">
+        <div class="contact-icon icon-web">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="#16a34a" stroke-width="1.75"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10A15.3 15.3 0 0 1 8 12a15.3 15.3 0 0 1 4-10z" stroke="#16a34a" stroke-width="1.75"/>
+            <line x1="2" y1="12" x2="22" y2="12" stroke="#16a34a" stroke-width="1.75"/>
+          </svg>
+        </div>
+        <div class="contact-row-text">
+          <span class="contact-label">Website</span>
+          <span class="contact-value">amywang-consulting</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Mini QR for sharing this card -->
+    <div class="qr-section">
+      <p class="qr-label">Share this card</p>
+      <img
+        class="qr-code"
+        src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fphwamy.github.io%2Famywang-consulting%2Fcard.html&color=1a1a1a&bgcolor=ffffff&margin=0"
+        alt="QR code linking to Amy Wang's digital business card"
+      />
+    </div>
+
+    <p class="footer-note">© 2026 Amy Wang</p>
+  </div>
+</body>
+</html>
