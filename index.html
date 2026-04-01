@@ -322,6 +322,9 @@
       height: 580px;
     }
 
+    .contact-blurb { color: var(--muted); font-size: 0.95rem; }
+    .contact-note  { margin-top: 0.85rem; font-size: 0.8rem; color: var(--muted); }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -503,33 +506,21 @@
     <p class="section-label">Contact</p>
     <div class="contact-grid">
 
-      <!-- Form — replace ACTION_URL with your Formspree endpoint -->
-      <form action="FORMSPREE_ENDPOINT" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required />
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell me what you're working on…" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary form-submit">Send message</button>
-      </form>
+      <!-- Left: reach out blurb + email CTA -->
+      <div class="contact-left">
+        <p class="contact-blurb">Have a project in mind or just want to explore what AI could do for your business? I'd love to hear from you.</p>
+        <a href="mailto:phw.amy@gmail.com" class="btn btn-primary" style="margin-top:1.25rem;display:inline-block;">Send me an email</a>
+        <p class="contact-note">Or book a free 30-min call using the calendar →</p>
+      </div>
 
-      <!-- Calendly — replace CALENDLY_URL with your Calendly link -->
+      <!-- Right: Calendly inline widget — replace CALENDLY_URL with your link -->
       <div>
-        <!-- OPTION A: inline widget (replace URL below) -->
         <!-- <div class="calendly-inline-widget" data-url="CALENDLY_URL"></div>
         <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
 
-        <!-- OPTION B: placeholder shown until you add your Calendly URL -->
         <div class="calendly-placeholder" id="calendly-placeholder">
           <strong>Book a free 30-min call</strong>
-          <p>Add your Calendly URL to replace this with the live scheduling widget.</p>
+          <p>Add your Calendly URL to enable live scheduling.</p>
         </div>
       </div>
 
