@@ -351,7 +351,7 @@
       grid-template-columns: 250px minmax(0, 1fr);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      overflow: hidden;
+      overflow: clip; /* clip border-radius without hiding overflow in block axis */
     }
 
     .booking-panel {
@@ -442,14 +442,8 @@
 
     #my-cal-inline {
       width: 100%;
-      height: 560px;
       min-width: 0;
-      overflow: hidden;
-    }
-
-    #my-cal-inline iframe {
-      width: 100% !important;
-      max-width: 100% !important;
+      /* Height auto-adjusts to Cal.com's content via the resize listener below */
     }
 
     /* ── FOOTER ── */
@@ -759,6 +753,22 @@
           layout: "month_view"
         });
       }
+
+      // Resize container to match Cal.com iframe height at each booking step
+      Cal("on", {
+        action: "__iframeReady",
+        callback: function() {
+          Cal("on", {
+            action: "__dimensionChanged",
+            callback: function(e) {
+              var el = document.getElementById("my-cal-inline");
+              if (el && e && e.data && e.data.iframeHeight) {
+                el.style.height = e.data.iframeHeight + "px";
+              }
+            }
+          });
+        }
+      });
 
       // Load default (30 min)
       loadCal("phw.amy/30min");
