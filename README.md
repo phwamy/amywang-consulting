@@ -60,7 +60,7 @@ Edit the relevant section in `index.html` directly.
 Find the cert badge on [Credly](https://www.credly.com), copy the image URL, and add a new `.cert-card` block in the certifications section.
 
 **Update contact info**
-Search for `phw.amy@gmail.com` and `peihsinwang` in both `index.html` and `card.html`.
+Search for `phw.amy@gmail.com` in both `index.html` and `card.html`.
 
 **Update vCard**
 Edit `amy-wang.vcf` with any new contact details, then push.
